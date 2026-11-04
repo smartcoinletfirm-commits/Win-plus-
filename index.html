@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07140f">
+<meta name="description" content="Aviator IQ — camera-assisted multiplier logging and statistical analysis.">
+<title>Aviator IQ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+ <header class="top">
+  <div class="brand"><div class="logo">IQ</div><div><h1>AVIATOR IQ</h1><div class="sub">CAMERA MULTIPLIER LAB</div></div></div>
+  <div class="pill">● LOCAL ANALYSIS</div>
+ </header>
+
+ <div class="grid">
+  <section class="card span8">
+   <h2>01 / Camera input</h2>
+   <div class="cameraBox" id="cameraBox">
+    <div class="placeholder" id="placeholder"><div style="font-size:34px">▣</div><b>Camera is not connected</b><p class="small">Point this phone's camera at the Aviator screen on another device. Keep the multiplier/history clear and well lit.</p></div>
+    <video id="video" autoplay playsinline muted hidden></video>
+   </div>
+   <div class="controls">
+    <button id="startBtn">Enable camera</button>
+    <button id="scanBtn" class="secondary" disabled>Capture & scan</button>
+    <button id="stopBtn" class="warn" disabled>Stop camera</button>
+   </div>
+   <div class="status" id="cameraStatus">Camera access requires HTTPS and your permission. GitHub Pages supports HTTPS.</div>
+   <div style="margin-top:12px">
+    <label class="small muted" for="manual">Or enter a multiplier manually (example: 1.60)</label>
+    <div class="row" style="margin-top:6px"><input id="manual" type="number" min="1" step="0.01" placeholder="Enter multiplier, e.g. 1.60"><button id="addManual">Add result</button></div>
+   </div>
+  </section>
+
+  <section class="card span4">
+   <h2>02 / Live statistics</h2>
+   <div class="statgrid">
+    <div class="stat"><label>Rounds saved</label><strong id="roundCount">0</strong></div>
+    <div class="stat"><label>Average multiplier</label><strong id="average">—</strong></div>
+    <div class="stat"><label>At least 2x</label><strong id="over2">—</strong></div>
+    <div class="stat"><label>At least 10x</label><strong id="over10">—</strong></div>
+   </div>
+   <p class="small muted" style="margin:12px 0 0">Statistics describe saved historical results only. They do not reveal the next random outcome.</p>
+  </section>
+
+  <section class="card span6">
+   <h2>03 / OCR scan review</h2>
+   <p class="small muted">The scan reads visible text from the captured frame. Check the detected values before saving; camera OCR can misread digits.</p>
+   <div id="ocrStatus" class="status">No scan performed yet.</div>
+   <div id="detected" class="history" style="margin-top:8px"></div>
+   <div class="controls"><button id="saveDetected" disabled>Save selected result</button><button id="clearDetected" class="secondary">Clear scan</button></div>
+   <div class="small muted" style="margin-top:8px">Choose one value from the scan before saving it, to avoid importing old history as new rounds.</div>
+  </section>
+
+  <section class="card span6">
+   <h2>04 / Probability report</h2>
+   <div class="notice">These are observed frequencies in your saved sample, not a forecast or a signal to place a bet. If rounds are independent, past results do not make a future multiplier more likely.</div>
+   <div id="probability" style="margin-top:12px" class="small muted">Add at least one result to calculate sample frequencies.</div>
+  </section>
+
+  <section class="card span12">
+   <div class="row" style="align-items:center"><h2 style="margin:0;flex:1">05 / Round history</h2><button id="exportBtn" class="secondary">Export CSV</button><button id="clearAll" class="warn">Clear all</button></div>
+   <div id="history" class="history" style="margin-top:14px"></div>
+   <div id="empty" class="small muted" style="margin-top:10px">No rounds recorded. Start with camera scanning or manual entry.</div>
+  </section>
+  <section class="card span12">
+   <h2>06 / Prediction validation</h2>
+   <p class="small muted">This first version deliberately does not invent a next-round prediction. It collects clean observations first. Once you have a sufficiently large dataset, we can test candidate models against a baseline using chronological holdout data and report whether any model adds measurable predictive value.</p>
+   <div class="row">
+    <div class="stat"><label>Data collection status</label><strong id="dataStatus" class="gold">Starting</strong></div>
+    <div class="stat"><label>Prediction reliability</label><strong class="gold">Not established</strong></div>
+   </div>
+  </section>
+ </div>
+ <div class="footer">AVIATOR IQ • Research and record-keeping tool • No guaranteed predictions</div>
+</div>
+
+<canvas id="capture" hidden></canvas>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
